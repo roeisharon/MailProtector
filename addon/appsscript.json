@@ -5,6 +5,9 @@
     "https://www.googleapis.com/auth/script.external_request",
     "https://www.googleapis.com/auth/gmail.addons.execute"
   ],
+  "urlFetchWhitelist": [
+    "https://mailprotector.onrender.com/"
+  ],
   "gmail": {
     "name": "Malicious Email Scorer",
     "logoUrl": "https://static.thenounproject.com/png/shield-icon-8051136-512.png",
