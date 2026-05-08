@@ -2,7 +2,7 @@ from analyzers.language_analyzer import analyze_language
 from analyzers.url_analyzer import analyze_urls
 from analyzers.header_analyzer import analyze_headers
 from analyzers.attachment_analyzer import analyze_attachments
-from services.llm_service import generate_summary
+from backend.services.llm_service import generate_summary
 from utils.sanitizer import sanitize_email_body
 from utils.logger import logger
 from utils.normalizer import normalize_for_detection
