@@ -7,6 +7,41 @@ from utils.sanitizer import sanitize_email_body
 from utils.logger import logger
 from utils.normalizer import normalize_for_detection
 
+SCORING_RULES = {
+    # Email authentication
+    "spf": 40,
+    "dkim": 40,
+    "dmarc": 35,
+
+    # Sender identity
+    "suspicious sender identity": 20,
+    "free email provider": 5,
+    "reply-to mismatch": 30,
+
+    # URL analysis
+    "shortened": 20,
+    "suspicious tld": 30,
+    "ip-based url": 35,
+    "suspicious url keyword": 15,
+    "subdomain depth": 15,
+    "safe browsing": 50,
+
+    # Attachments
+    "executables attachment": 45,
+    "scripts attachment": 30,
+    "archives attachment": 10,
+    "macro documents attachment": 35,
+    "source code attachment": 5,
+    "binary artifacts attachment": 10,
+    "suspicious attachment filename": 20,
+    "double-extension": 45,
+
+    # Language analysis
+    "urgency": 10,
+    "credential_theft": 25,
+    "financial_pressure": 20
+}
+
 def analyze_email(email):
     logger.info(f"Starting analysis for email from: {email.sender}")
 
@@ -39,54 +74,26 @@ def analyze_email(email):
     for finding in findings:
 
         lower_finding = finding.lower()
+        matched = False
 
-        if "spf" in lower_finding:
-            score += 40
-        elif "dkim" in lower_finding:
-            score += 40
-        elif "dmarc" in lower_finding:
-            score += 35
-        elif "shortened" in lower_finding:
-            score += 25
-        elif "suspicious tld" in lower_finding:
-            score += 30
-        elif "ip-based url" in lower_finding:
-            score += 35
-        elif "suspicious url keyword" in lower_finding:
-            score += 20
-        elif "subdomain depth" in lower_finding:
-            score += 20
-        elif "executables attachment" in lower_finding:
-            score += 45
-        elif "scripts attachment" in lower_finding:
-            score += 35
-        elif "archives attachment" in lower_finding:
-            score += 15
-        elif "macro documents attachment" in lower_finding:
-            score += 35
-        elif "source code attachment" in lower_finding:
-            score += 10
-        elif "binary artifacts attachment" in lower_finding:
-            score += 20
-        elif "suspicious attachment filename" in lower_finding:
-            score += 20
-        elif "double-extension" in lower_finding:
-            score += 45
-        elif "urgency" in lower_finding:
-            score += 15
-        elif "credential_theft" in lower_finding:
-            score += 25
-        elif "financial_pressure" in lower_finding:
-            score += 20
-        elif "safe browsing" in lower_finding:
-            score += 50
-        else:
-            score += 10
+        for rule, points in SCORING_RULES.items():
+            if rule in lower_finding:
+                score += points
+                matched = True
+                break
+        
+        if not matched:
+            logger.warning(f"No scoring rule matched finding: {finding}")
+        
 
-    if score >= 60:
+    if score >= 75:
         verdict = "Likely phishing"
+    elif score >= 50:
+        verdict = "High Risk"
     elif score >= 25:
         verdict = "Suspicious"
+    elif score >= 10:
+        verdict = "Low Risk"
     else:
         verdict = "Safe"
 
@@ -96,8 +103,13 @@ def analyze_email(email):
         body = sanitized_body,
         findings = findings,
         score = min(score, 100),
-        verdict = verdict
+        verdict = verdict,
+        sender = email.sender,
+        subject = email.subject,
+        attachments = email.attachments
     )
+
+    
     logger.info("LLM summary generated successfully")
 
     return {

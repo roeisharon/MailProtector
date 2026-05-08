@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+from utils.logger import logger
 
 load_dotenv()
 
@@ -23,15 +24,20 @@ def check_url_safety(url):
         }
     }
 
-    response = requests.post(
-        f"{SAFE_BROWSING_URL}?key={API_KEY}",
-        json=body,
-        timeout=5
-    )
+    try:
+        response = requests.post(
+            f"{SAFE_BROWSING_URL}?key={API_KEY}",
+            json=body,
+            timeout=5
+        )
 
-    if response.status_code != 200:
-        return False
+        if response.status_code != 200:
+            return False
+        
+        data = response.json()
     
-    data = response.json()
+    except requests.RequestException:
+        logger.warning(f"Safe Browsing lookup failed for URL: {url}")
+        return False
 
     return "matches" in data

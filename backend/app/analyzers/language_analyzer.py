@@ -48,7 +48,7 @@ def analyze_language(body: str):
             if re.search(pattern, normalized_body):
 
                 findings.append(
-                    f"Suspicious {category} language detected"
+                    f"Suspicious {category.replace('_', ' ').title()} language detected"
                 )
 
     return findings

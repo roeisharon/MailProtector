@@ -21,7 +21,7 @@ def analyze_urls(body: str):
     findings = []
 
     urls = re.findall(
-        r'https?://[^\s]+',
+        r'(https?://[^\s]+|www\.[^\s]+)',
         body)
 
     for url in urls:
@@ -54,7 +54,7 @@ def analyze_urls(body: str):
                 break
         
         if sus_keywords_found:
-            findings.append(f"Suspicious keyword in URL detected")
+            findings.append(f"Suspicious URL keyword detected")
         
         # Check for excessive subdomain depth
         if subdomain:
