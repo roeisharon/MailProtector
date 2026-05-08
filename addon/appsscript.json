@@ -1,0 +1,18 @@
+{
+  "timeZone": "UTC",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/script.external_request",
+    "https://www.googleapis.com/auth/gmail.addons.execute"
+  ],
+  "gmail": {
+    "name": "Malicious Email Scorer",
+    "logoUrl": "https://static.thenounproject.com/png/shield-icon-8051136-512.png",
+    "contextualTriggers": [
+      {
+        "unconditional": {},
+        "onTriggerFunction": "getContextualAddOn"
+      }
+    ]
+  }
+}
