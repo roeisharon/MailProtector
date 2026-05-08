@@ -1,0 +1,10 @@
+{
+  "subject": "Project Meeting Notes",
+  "sender": "teamlead@company.com",
+  "body": "Hi everyone,\n\nAttached are the meeting notes and updated project timeline from today's discussion.\n\nBest regards,\nDaniel",
+  "headers": "From: Daniel Cohen <teamlead@company.com>\nspf=pass dkim=pass dmarc=pass",
+  "attachments": [
+    "meeting_notes.pdf",
+    "project_timeline.xlsx"
+  ]
+}

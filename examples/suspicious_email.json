@@ -1,0 +1,9 @@
+{
+  "subject": "Shared Files",
+  "sender": "colleague@external-partner.com",
+  "body": "Hi,\n\nPlease find the requested documents attached.\nYou can also access them here: https://bit.ly/shared-files-demo\n\nBest,\nMichael",
+  "headers": "From: Michael <colleague@external-partner.com>\nspf=pass dkim=pass dmarc=pass",
+  "attachments": [
+    "documents.zip"
+  ]
+}

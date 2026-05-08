@@ -1,0 +1,10 @@
+{
+  "subject": "Immediate Account Verification Required",
+  "sender": "security-alerts@gmail.com",
+  "body": "Your account access will be suspended within 24 hours unless you verify your identity immediately. Download the attached secure verification form and confirm your credentials here: http://testsafebrowsing.appspot.com/s/phishing.html",
+  "headers": "From: PayPal Security <security-alerts@gmail.com>\nReply-To: attacker@evil-domain.xyz\nspf=fail dkim=fail dmarc=fail",
+  "attachments": [
+    "secure_verification_form.zip",
+    "account_update.docm"
+  ]
+}
