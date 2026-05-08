@@ -30,6 +30,6 @@ async def health_check():
 @app.get("/")
 async def root():
     return {
-        "service": "malicious-email-scorer",
+        "service": "MailProtector API",
         "status": "running"
     }
