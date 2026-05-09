@@ -6,7 +6,7 @@
     "https://www.googleapis.com/auth/gmail.addons.execute"
   ],
   "urlFetchWhitelist": [
-    "YOUR_RENDER_SERVER_URL_HERE"
+    "YOUR_BACKEND_SERVER_URL_HERE"
   ],
   "gmail": {
     "name": "Malicious Email Scorer",
