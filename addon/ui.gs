@@ -6,13 +6,13 @@ function buildResultCard(result) {
 
   section.addWidget(
     CardService.newDecoratedText()
-      .setText(forceLTR("<b>Email Security Analysis</b>"))
-      .setBottomLabel(forceLTR("Risk Score: " + result.score + "/100"))
+      .setText("<b>Email Security Analysis</b>")
+      .setBottomLabel("Risk Score: " + result.score + "/100")
   );
 
   section.addWidget(
     CardService.newTextParagraph()
-      .setText(forceLTR("<b>" + severity.icon + " " + result.verdict + "</b>"))
+      .setText("<b>" + severity.icon + " " + result.verdict + "</b>")
   );
 
   section.addWidget(CardService.newDivider());
@@ -20,18 +20,18 @@ function buildResultCard(result) {
   if (result.reasons.length > 0) {
     section.addWidget(
       CardService.newTextParagraph()
-        .setText(forceLTR("<b>Detected Signals</b>"))
+        .setText("<b>Detected Signals</b>")
     );
     for (var i = 0; i < result.reasons.length; i++) {
       section.addWidget(
-        CardService.newDecoratedText()
-          .setText(forceLTR(result.reasons[i]))
+        CardService.newTextParagraph()
+          .setText(result.reasons[i])
       );
     }
   } else {
     section.addWidget(
       CardService.newDecoratedText()
-        .setText(forceLTR("No major security concerns were detected"))
+        .setText("No major security concerns were detected")
     );
   }
 
@@ -39,11 +39,11 @@ function buildResultCard(result) {
 
   section.addWidget(
     CardService.newTextParagraph()
-      .setText(forceLTR("<b>AI Security Summary</b>"))
+      .setText("<b>AI Security Summary</b>")
   );
   section.addWidget(
     CardService.newTextParagraph()
-      .setText(forceLTR(result.llm_summary))
+      .setText(result.llm_summary)
   );
 
   section.addWidget(CardService.newDivider());
@@ -51,7 +51,7 @@ function buildResultCard(result) {
   section.addWidget(
   CardService.newDecoratedText()
     .setBottomLabel(
-      forceLTR("⚠️ AI-assisted analysis. Always use caution with suspicious emails.")
+      "⚠️ AI-assisted analysis. Always use caution with suspicious emails."
     )
   );
 
@@ -59,9 +59,6 @@ function buildResultCard(result) {
   return card.build();
 }
 
-function forceLTR(text) {
-  return "\u202A" + text + "\u202C";
-}
 
 function getSeverityConfig(verdict) {
   if (verdict === "Safe") return { icon: "✅" };
