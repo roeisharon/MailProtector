@@ -75,6 +75,15 @@ def analyze_email(email):
 
     score = 0
 
+    findings_set = []
+
+    # Remove duplicate findings (not using set to preserve order of findings)
+    for finding in findings:
+        if finding not in findings_set:
+            findings_set.append(finding)
+    
+    findings = findings_set
+
     for finding in findings:
 
         lower_finding = finding.lower()
