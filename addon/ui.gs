@@ -46,6 +46,15 @@ function buildResultCard(result) {
       .setText(forceLTR(result.llm_summary))
   );
 
+  section.addWidget(CardService.newDivider());
+
+  section.addWidget(
+  CardService.newDecoratedText()
+    .setBottomLabel(
+      forceLTR("⚠️ AI-assisted analysis. Always use caution with suspicious emails.")
+    )
+  );
+
   card.addSection(section);
   return card.build();
 }

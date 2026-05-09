@@ -9,6 +9,9 @@ CHAR_SUBSTITUTIONS = {
 }
 
 def normalize_for_detection(text: str):
+    """
+    Normalizes the input text for detection
+    """
 
     normalized = text.lower()
 
@@ -35,7 +38,6 @@ def normalize_for_detection(text: str):
     words = normalized.split()
 
     for word in words:
-
         if len(word) <= 1:
             continue
 

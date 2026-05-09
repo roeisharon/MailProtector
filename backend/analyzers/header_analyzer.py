@@ -7,6 +7,7 @@ SUSPICIOUS_SENDER_KEYWORDS = [
 FREE_EMAIL_PROVIDERS = [
     "gmail.com", "yahoo.com", "hotmail.com", "outlook.com"]
 
+# Find sender's address using regex
 def extract_email_sender(headers: str):
     match = re.search(
         r'From:.*?<([^>]+)>',
@@ -19,6 +20,7 @@ def extract_email_sender(headers: str):
 
     return None
 
+# Find reply-to address using regex
 def extract_reply_to(headers: str):
     match = re.search(
         r'Reply-To:\s*(.+)',
@@ -32,6 +34,9 @@ def extract_reply_to(headers: str):
     return None
 
 def analyze_headers(headers: str):
+    """
+    Analyze the email headers for suspicious patterns.
+    """
     findings = []
 
     lower_headers = headers.lower()

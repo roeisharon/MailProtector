@@ -1,6 +1,5 @@
 import re
 
-
 ATTACHMENT_CATEGORIES = {
     "executables": [
         ".exe",
@@ -75,6 +74,9 @@ DOUBLE_EXTENSION_PATTERN = (
 
 
 def analyze_attachments(attachments):
+    """
+    Analyze the email attachments for suspicious patterns.
+    """
 
     findings = []
 

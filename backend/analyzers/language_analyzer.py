@@ -30,6 +30,9 @@ SUSPICIOUS_PATTERNS = {
 }
 
 def analyze_language(body: str):
+    """
+    Analyze the email body for suspicious language patterns.
+    """
 
     findings = []
 
@@ -41,12 +44,10 @@ def analyze_language(body: str):
         normalized_body
     )
 
+    # Check for suspicious language patterns
     for category, patterns in SUSPICIOUS_PATTERNS.items():
-
         for pattern in patterns:
-
             if re.search(pattern, normalized_body):
-
                 findings.append(
                     f"Suspicious {category.replace('_', ' ').title()} language detected"
                 )

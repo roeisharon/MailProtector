@@ -5,10 +5,15 @@ from utils.logger import logger
 
 load_dotenv()
 
-SAFE_BROWSING_URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find"
+SAFE_BROWSING_URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find" # hardcoded since doesnt contain sensitive info
 API_KEY = os.getenv("GOOGLE_SAFE_BROWSING_API_KEY")
 
 def check_url_safety(url):
+    """
+    Checks if a URL is flagged as malicious using the Google Safe Browsing API.
+    Returns True if the URL is flagged as malicious, False otherwise.
+    """
+    
     body = {
         "client": {
             "clientId": "malicious-email-scorer",

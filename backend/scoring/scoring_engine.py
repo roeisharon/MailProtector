@@ -43,29 +43,33 @@ SCORING_RULES = {
 }
 
 def analyze_email(email):
+    """
+    Analyze an email and return a risk score, verdict, and reasons.
+    """
+    
     logger.info(f"Starting analysis for email from: {email.sender}")
 
     findings = []
 
-    sanitized_body = sanitize_email_body(email.body)
+    sanitized_body = sanitize_email_body(email.body) # sanitize body to remove noise and irrelevant content
     logger.info(f"Sanitized body length: {len(sanitized_body)}")
 
-    normalized_body = normalize_for_detection(sanitized_body)
+    normalized_body = normalize_for_detection(sanitized_body) # normalize body to improve detection of phishing indicators
     logger.info(f"Normalized body length: {len(normalized_body)}")
 
-    language_findings = analyze_language(normalized_body)
+    language_findings = analyze_language(normalized_body) # language analysis findings
     logger.info(f"Language findings: {language_findings}")
     findings += language_findings
 
-    url_findings = analyze_urls(sanitized_body)
+    url_findings = analyze_urls(sanitized_body) # URL analysis findings
     logger.info(f"URL findings: {url_findings}")
     findings += url_findings
 
-    attachment_findings = analyze_attachments(email.attachments)
+    attachment_findings = analyze_attachments(email.attachments) # attachment analysis findings
     logger.info(f"Attachment findings: {attachment_findings}")
     findings += attachment_findings
 
-    header_findings = analyze_headers(email.headers)
+    header_findings = analyze_headers(email.headers) # header analysis findings
     logger.info(f"Header findings: {header_findings}")
     findings += header_findings
 
@@ -76,7 +80,7 @@ def analyze_email(email):
         lower_finding = finding.lower()
         matched = False
 
-        for rule, points in SCORING_RULES.items():
+        for rule, points in SCORING_RULES.items(): # check if any of the scoring rules match the finding
             if rule in lower_finding:
                 score += points
                 matched = True
@@ -86,6 +90,7 @@ def analyze_email(email):
             logger.warning(f"No scoring rule matched finding: {finding}")
         
 
+    # gradings
     if score >= 75:
         verdict = "Likely phishing"
     elif score >= 50:
@@ -99,6 +104,7 @@ def analyze_email(email):
 
     logger.info(f"Final score: {score} | Verdict: {verdict}")
 
+    # Generate LLM summary of the analysis baesed on the findings, score and extra semantic analysis
     llm_summary = generate_summary(
         body = sanitized_body,
         findings = findings,
@@ -108,7 +114,6 @@ def analyze_email(email):
         subject = email.subject,
         attachments = email.attachments
     )
-
     
     logger.info("LLM summary generated successfully")
 

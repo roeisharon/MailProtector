@@ -10,6 +10,8 @@ SUSPICIOUS_DOMAIN_KEYWORDS = ["login", "secure", "verify", "update", "verify", "
 MAX_SUBDOMAIN_DEPTH = 3
 
 def is_ip_address(domain: str):
+    """
+    Check if the given domain is an IP address."""
     try:
         ipaddress.ip_address(domain)
         return True
@@ -17,6 +19,9 @@ def is_ip_address(domain: str):
         return False
 
 def analyze_urls(body: str):
+    """
+    Analyze the email body for suspicious URLs.
+    """
     
     findings = []
 
