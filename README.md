@@ -185,6 +185,7 @@ Several engineering tradeoffs were made during development, including:
 * Combining deterministic analyzers with lightweight LLM-assisted reasoning
 * Favoring transparent rule-based scoring over autonomous classification
 * Treating all email content as untrusted input
+* Applying prompt injection-aware constraints to the LLM explanation layer 
 * Isolating analyzers into independent modules
 * Failing safely when external security APIs are unavailable
 
@@ -198,14 +199,12 @@ Additional security considerations and architectural tradeoffs:
 
 Potential future improvements include:
 
-* Attachment sandboxing
-* Domain reputation caching
-* Behavioral sender analysis
-* Organization-wide threat intelligence
-* Async analysis pipelines
-* ML-assisted score calibration
-* Historical email reputation tracking
-* Advanced phishing clustering
+* Historical sender and domain reputation tracking
+* Attachment sandboxing and recursive archive scanning
+* Organization-wide threat intelligence and shared signals
+* ML-assisted detection models
+* Production optimization and scalability
+* Expanded user interface and experience
 
 Additional scalability and product-extension ideas:
 
