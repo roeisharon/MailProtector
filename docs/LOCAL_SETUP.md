@@ -74,7 +74,7 @@ Example:
 
 ```env id="f9m3qa"
 OPENAI_API_KEY=your_openai_api_key
-SAFE_BROWSING_API_KEY=your_google_safe_browsing_key
+GOOGLE_SAFE_BROWSING_API_KEY=your_google_safe_browsing_key
 ```
 
 The backend uses these credentials for:
